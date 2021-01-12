@@ -1,0 +1,33 @@
+- hosts: myweb
+  tasks:
+  - name: "install httpd"
+    package:
+      name: "httpd"
+      state: present
+
+  - name: "copying content"
+    copy:
+      dest: "/var/www/html/index.html"
+      content: "for load balance testing"
+
+  - name: "starting services"
+    service: 
+      name: "httpd"
+      state: "restarted"
+
+- hosts: mylb
+  tasks:
+  - name: "install haproxy"
+    package:
+      name: "haproxy"
+      state: present
+
+  - name: "copying haproxy.cfg"
+    template:
+      dest: "/etc/haproxy/haproxy.cfg"
+      src: "haproxy.cfg"
+
+  - name: "starting haproxy"
+    service: 
+      name: "haproxy"
+      state: started
