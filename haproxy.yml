@@ -8,7 +8,7 @@
   - name: "copying content"
     copy:
       dest: "/var/www/html/index.html"
-      content: "for load balance testing"
+      src: "index.php"
 
   - name: "starting services"
     service: 
